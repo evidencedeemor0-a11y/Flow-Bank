@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#f4f5f0">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<title>Flow</title>
+</head>
+<body>
+
+<div id="splash" class="splash">
+  <div class="splash-mark">
+    <svg viewBox="0 0 100 100" width="64" height="64"><path d="M20 15 Q20 15 70 15 Q85 15 85 32 Q85 48 70 48 L38 48 L38 85" fill="none" stroke="#101314" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="splash-word">Flow</div>
+</div>
+
+<div id="app" class="app hidden">
+
+  <!-- HOME -->
+  <main id="homeMain" class="screen hidden">
+    <header class="topbar">
+      <button class="icon-circle glass" id="menuBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <h1 class="topbar-title">My Account</h1>
+      <button class="icon-circle glass" id="notificationsBtn" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 10.5a6 6 0 0 1 12 0c0 3.4.9 5.4 1.7 6.5.4.5 0 1.3-.6 1.3H4.9c-.6 0-1-.8-.6-1.3.8-1.1 1.7-3.1 1.7-6.5Z"/><path d="M9.5 20a2.6 2.6 0 0 0 5 0"/></svg>
+        <span class="badge" id="notifBadge">2</span>
+      </button>
+    </header>
+
+    <button class="card-chip glass" id="cardChipBtn">
+      <span class="card-chip-mark" id="cardChipMark"></span>
+      <span id="cardChipLabel">•••• 3425</span>
+      <svg viewBox="0 0 24 24" width="13" height="13" class="chev"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <section class="balance-block">
+      <span class="balance-caption" id="balanceCaption">Your Balance</span>
+      <div id="balance" class="balance-xl">$0.00</div>
+      <div class="insight-pill" id="insightPill">
+        <span class="insight-ico icon-inline"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg></span>
+        <span id="insightText">You saved $0 last month</span>
+      </div>
+    </section>
+
+    <section class="quick-actions">
+      <button class="qa" data-action="send">
+        <span class="qa-circle qa-circle--filled">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+        </span>
+        <small>Send</small>
+      </button>
+      <button class="qa" data-action="request">
+        <span class="qa-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M17 7L7 17M7 17h8M7 17V9"/></svg>
+        </span>
+        <small>Request</small>
+      </button>
+      <button class="qa" data-action="exchange">
+        <span class="qa-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>
+        </span>
+        <small>Exchange</small>
+      </button>
+      <button class="qa" data-action="more">
+        <span class="qa-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+        </span>
+        <small>More</small>
+      </button>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Top Merchants</h2><button class="link-btn" id="merchantsViewAll">View all ›</button></div>
+      <div class="merchant-row" id="merchantRow"></div>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Transaction History</h2><button class="link-btn" id="seeAllBtn">View all ›</button></div>
+      <div id="activityPreview" class="transactions"></div>
+    </section>
+  </main>
+
+  <!-- STATISTIC -->
+  <main id="statisticMain" class="screen hidden">
+    <header class="topbar topbar--simple"><h1 class="page-title">Statistic</h1></header>
+    <div class="stat-toggle">
+      <button class="filter active" data-stat-range="week">This week</button>
+      <button class="filter" data-stat-range="month">This month</button>
+      <button class="filter" data-stat-range="all">All time</button>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-label">Received</span>
+        <span class="stat-value stat-value--pos" id="statReceived">$0.00</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Sent</span>
+        <span class="stat-value" id="statSent">$0.00</span>
+      </div>
+    </div>
+    <section class="card-section">
+      <div class="section-head"><h2>By category</h2></div>
+      <div id="statBreakdown" class="stat-breakdown"></div>
+    </section>
+    <section class="card-section">
+      <div class="section-head"><h2>Accounts</h2></div>
+      <div class="stat-breakdown">
+        <div class="stat-row"><span>Checking</span><b id="statChecking">$0.00</b></div>
+        <div class="stat-row"><span>Savings</span><b id="statSavings">$0.00</b></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CARD -->
+  <main id="cardMain" class="screen hidden">
+    <header class="topbar topbar--simple"><h1 class="page-title">Card</h1></header>
+    <div class="visual-card" id="visualCard">
+      <div class="visual-card-top">
+        <span class="visual-card-brand">Flow</span>
+        <span class="visual-card-chip"><svg viewBox="0 0 24 24" width="22" height="16"><rect x="1" y="1" width="22" height="14" rx="3" fill="currentColor"/><path d="M1 6h22M8 1v14M16 1v14" stroke="#1a1d10" stroke-width="1"/></svg></span>
+      </div>
+      <div class="visual-card-number" id="visualCardNumber">4291&nbsp;&nbsp;••••&nbsp;&nbsp;••••&nbsp;&nbsp;3425</div>
+      <div class="visual-card-bottom">
+        <div>
+          <span class="visual-card-label">Card holder</span>
+          <span id="visualCardName">Flow Member</span>
+        </div>
+        <div>
+          <span class="visual-card-label">Expires</span>
+          <span id="visualCardExpiry">09/29</span>
+        </div>
+      </div>
+    </div>
+    <section class="card-section">
+      <div class="add-money" id="freezeCardBtn"><span id="freezeIcon" class="icon-inline"></span><span id="freezeLabel">Freeze card</span></div>
+      <div class="add-money" id="showPinBtn"><span class="icon-inline"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h.01M12 9h.01M16 9h.01M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></svg></span> View passcode reminder</div>
+    </section>
+    <section class="card-section">
+      <div class="section-head"><h2>Card settings</h2></div>
+      <div class="field"><label>Card nickname</label><input id="cardNicknameInput" placeholder="e.g. Everyday spending"></div>
+      <button class="primary" id="saveCardNicknameBtn">Save</button>
+    </section>
+  </main>
+
+  <!-- AMOUNT (shared by send / request / exchange / top up) -->
+  <main id="amountMain" class="screen hidden amount-screen">
+    <button class="small-btn back-btn" data-back="home"><span class="icon-inline" style="width:14px;height:14px"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> Back</button>
+
+    <div class="amount-center">
+      <div class="amount-balance-hint" id="amountBalanceHint">$0.00 available</div>
+      <div class="amount-input-wrap">
+        <span id="amountCurrencySym" class="amount-currency">$</span><input id="amountTyped" class="amount-input" type="text" inputmode="decimal" placeholder="0" autocomplete="off" />
+      </div>
+      <div class="amount-caption">Enter amount</div>
+    </div>
+
+    <button class="primary" id="amountContinueBtn">Continue</button>
+  </main>
+
+  <!-- DETAILS (context fields per flow, shown after amount) -->
+  <main id="detailsMain" class="screen hidden">
+    <button class="small-btn back-btn" data-back="amount"><span class="icon-inline" style="width:14px;height:14px"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> Back</button>
+    <h1 class="page-title" id="detailsTitle">Send money</h1>
+
+    <div id="sendDetailFields">
+      <div class="field"><label>Send to</label>
+        <div class="quick" id="sendDestPicker">
+          <button type="button" class="src-btn" data-dest="person"><span class="icon-inline"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-4 4-6 7.5-6s6.1 2 7.5 6"/></svg></span> Someone</button>
+          <button type="button" class="src-btn active" data-dest="bank"><span class="icon-inline"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9"/><path d="M3 19h18"/></svg></span> Bank account</button>
+          <button type="button" class="src-btn" data-dest="savings"><span class="icon-inline"><svg viewBox="0 0 24 24"><path d="M4 13c0-3.6 3-6.5 7.5-6.5S19 9.4 19 13c0 1-.3 1.9-.9 2.7l.9 2.8-2.7-.8c-.9.5-2 .8-3.3.8H10a3 3 0 0 1-3-3v-.3C5.2 14.7 4 14 4 13Z"/></svg></span> My savings</button>
+        </div>
+      </div>
+      <div id="sendPersonFields" class="hidden">
+        <div class="field"><label>Recipient name</label><input id="sendPersonName" placeholder="e.g. Chidinma Okafor" autocomplete="off"></div>
+        <div class="field"><label>Phone number or @handle</label><input id="sendPersonHandle" placeholder="e.g. 080..., or @handle" autocomplete="off"></div>
+      </div>
+      <div id="sendBankFields">
+        <div class="field"><label>Bank name</label><input id="sendBankName" placeholder="e.g. GTBank" autocomplete="off"></div>
+        <div class="field"><label>Account number</label><input id="sendAccountNumber" placeholder="0123456789" inputmode="numeric" autocomplete="off"></div>
+        <div class="field"><label>Account name</label><input id="sendAccountName" placeholder="Beneficiary name" autocomplete="off"></div>
+      </div>
+      <div class="field"><label>Description (optional)</label><input id="sendNote" placeholder="What's it for?"></div>
+    </div>
+
+    <div id="requestDetailFields" class="hidden">
+      <div class="field"><label>From</label><input id="requestFrom" placeholder="Name or @handle" autocomplete="off"></div>
+      <div class="field"><label>Note (optional)</label><input id="requestNote" placeholder="What's it for?"></div>
+    </div>
+
+    <div id="exchangeDetailFields" class="hidden">
+      <div class="field"><label>Direction</label>
+        <div class="quick" id="exchangeDirPicker">
+          <button type="button" class="src-btn active" data-dir="to_savings">Checking → Savings</button>
+          <button type="button" class="src-btn" data-dir="to_checking">Savings → Checking</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="topupDetailFields" class="hidden">
+      <div class="field"><label>From</label>
+        <div class="quick" id="topupSourcePicker">
+          <button type="button" class="src-btn active" data-src="bank"><span class="icon-inline"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9"/><path d="M3 19h18"/></svg></span> Bank account</button>
+          <button type="button" class="src-btn" data-src="card"><span class="icon-inline"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/></svg></span> Debit card</button>
+        </div>
+      </div>
+      <div id="topupCardFields" class="hidden">
+        <div class="field"><label>Card number</label><input id="topupCardNumber" placeholder="4291 •••• •••• 3425" inputmode="numeric" maxlength="19" autocomplete="off"></div>
+        <div style="display:flex;gap:12px">
+          <div class="field" style="flex:1"><label>Expiry</label><input id="topupCardExpiry" placeholder="MM/YY" inputmode="numeric" maxlength="5" autocomplete="off"></div>
+          <div class="field" style="flex:1"><label>CVV</label><input id="topupCardCvv" placeholder="•••" inputmode="numeric" maxlength="3" autocomplete="off"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="primary" id="detailsContinueBtn">Continue</button>
+  </main>
+
+  <!-- PASSCODE CONFIRM SHEET -->
+  <div id="pinSheet" class="sheet hidden">
+    <div class="sheet-backdrop" id="pinSheetBackdrop"></div>
+    <div class="sheet-panel">
+      <div class="sheet-handle"></div>
+      <div class="confirm-summary" id="confirmSummary"></div>
+      <h2 class="confirm-title">Enter passcode to confirm</h2>
+      <div class="pin-field" id="confirmPinField">
+        <div class="pin-boxes" id="confirmDots">
+          <div class="pin-box"><span class="pin-box-dot"></span></div>
+          <div class="pin-box"><span class="pin-box-dot"></span></div>
+          <div class="pin-box"><span class="pin-box-dot"></span></div>
+          <div class="pin-box"><span class="pin-box-dot"></span></div>
+        </div>
+        <input id="confirmInput" class="pin-hidden-input" type="tel" inputmode="numeric" maxlength="4" autocomplete="off" />
+      </div>
+      <div class="lock-error hidden" id="confirmError">Incorrect passcode</div>
+    </div>
+  </div>
+
+  <!-- MORE SHEET -->
+  <div id="moreSheet" class="sheet hidden">
+    <div class="sheet-backdrop" id="moreSheetBackdrop"></div>
+    <div class="sheet-panel">
+      <div class="sheet-handle"></div>
+      <h2 class="confirm-title">More</h2>
+      <button class="add-money" data-more="topup"><span class="icon-inline"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span> Top up balance</button>
+      <button class="add-money" data-more="settings"><span class="icon-inline"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.3M12 18.7V21M21 12h-2.3M5.3 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2 5.6 5.6"/></svg></span> Settings</button>
+    </div>
+  </div>
+
+  <!-- ACCOUNT SWITCH SHEET -->
+  <div id="accountSheet" class="sheet hidden">
+    <div class="sheet-backdrop" id="accountSheetBackdrop"></div>
+    <div class="sheet-panel">
+      <div class="sheet-handle"></div>
+      <h2 class="confirm-title">Choose account</h2>
+      <button class="add-money account-opt" data-account="checking"><span style="display:flex;align-items:center;gap:8px"><span class="icon-inline"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/></svg></span>Checking</span><span class="acct-amt" id="acctChip1"></span></button>
+      <button class="add-money account-opt" data-account="savings"><span style="display:flex;align-items:center;gap:8px"><span class="icon-inline"><svg viewBox="0 0 24 24"><path d="M4 13c0-3.6 3-6.5 7.5-6.5S19 9.4 19 13c0 1-.3 1.9-.9 2.7l.9 2.8-2.7-.8c-.9.5-2 .8-3.3.8H10a3 3 0 0 1-3-3v-.3C5.2 14.7 4 14 4 13Z"/></svg></span>Savings</span><span class="acct-amt" id="acctChip2"></span></button>
+    </div>
+  </div>
+
+  <!-- STATUS (pending/success) -->
+  <main id="statusMain" class="screen hidden status-page">
+    <button class="small-btn back-btn status-back hidden" id="statusBackBtn"><span class="icon-inline" style="width:14px;height:14px"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> Back</button>
+    <div id="statusBody" class="status-body"></div>
+  </main>
+  <div id="statusActions" class="status-actions hidden">
+    <button class="primary" id="statusDoneBtn">Done</button>
+  </div>
+
+  <!-- ACTIVITY FULL -->
+  <main id="activityMain" class="screen hidden">
+    <button class="small-btn back-btn" data-back="home"><span class="icon-inline" style="width:14px;height:14px"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> Back</button>
+    <div class="activity-head">
+      <h1 class="page-title">Transaction History</h1>
+      <button class="icon-circle icon-circle--sm glass" id="searchToggleBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+    <input id="searchTx" class="search-input hidden" placeholder="Search transactions" />
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="received">Income</button>
+      <button class="filter" data-filter="sent">Sent</button>
+      <button class="filter" data-filter="request">Request</button>
+      <button class="filter" data-filter="transfer">Transfer</button>
+      <button class="filter" data-filter="topup">Top ups</button>
+    </div>
+    <div id="transactions" class="transactions"></div>
+  </main>
+
+  <!-- TX DETAIL -->
+  <main id="txDetailMain" class="screen hidden">
+    <button class="small-btn back-btn" data-back="activity"><span class="icon-inline" style="width:14px;height:14px"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span> Back</button>
+    <section class="card-section" id="txDetailContent" style="margin-top:0"></section>
+  </main>
+
+  <!-- PROFILE -->
+  <main id="profileMain" class="screen hidden">
+    <header class="topbar topbar--simple"><h1 class="page-title">Profile</h1></header>
+    <section class="profile-hero">
+      <div class="avatar" id="profileAvatar">F</div>
+      <h2 id="profileHeaderName">Flow Member</h2>
+      <p class="profile-handle" id="profileHandle">@flow-member</p>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Account</h2></div>
+      <div class="field"><label>Display name</label><input id="profileName" value="Flow Member"></div>
+      <div class="field"><label>Handle</label><input id="profileHandleInput" value="@flow-member"></div>
+      <button class="primary" id="saveProfileBtn">Save profile</button>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Preferences</h2></div>
+      <button class="add-money" id="themeToggleBtn">Switch to dark mode</button>
+      <button class="add-money" id="notifToggleBtn">Enable notifications</button>
+      <div class="field">
+        <label>Currency</label>
+        <div class="quick" id="currencySwatches">
+          <button type="button" class="chip-btn" data-currency="USD">$ USD</button>
+          <button type="button" class="chip-btn" data-currency="GBP">£ GBP</button>
+          <button type="button" class="chip-btn" data-currency="EUR">€ EUR</button>
+          <button type="button" class="chip-btn" data-currency="NGN">₦ NGN</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Security</h2></div>
+      <button class="add-money" id="changePasscodeBtn">Change passcode</button>
+    </section>
+
+    <section class="card-section">
+      <div class="section-head"><h2>Data</h2></div>
+      <button class="add-money add-money--danger" id="clearHistoryBtn">Clear transaction history</button>
+      <button class="add-money add-money--danger" id="resetAppBtn">Reset app</button>
+    </section>
+  </main>
+
+  <nav class="bottom-nav glass" id="bottomNav">
+    <span class="nav-indicator" id="navIndicator"></span>
+    <button class="nav active" data-nav="home">
+      <span class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1h4v-6h3v6h4a1 1 0 0 0 1-1v-9"/></svg></span>
+      <small>Home</small>
+    </button>
+    <button class="nav" data-nav="statistic">
+      <span class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M5 19V10"/><path d="M12 19V5"/><path d="M19 19v-7"/></svg></span>
+      <small>Statistic</small>
+    </button>
+    <button class="nav" data-nav="card">
+      <span class="nav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/></svg></span>
+      <small>Card</small>
+    </button>
+    <button class="nav" data-nav="profile">
+      <span class="nav-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-4 4-6 7.5-6s6.1 2 7.5 6"/></svg></span>
+      <small>Profile</small>
+    </button>
+  </nav>
+</div>
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
